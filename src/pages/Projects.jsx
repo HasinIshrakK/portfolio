@@ -17,15 +17,15 @@ export default function Projects() {
         {projects.map(p => (
           <motion.div
             key={p.id}
-            className="bg-white rounded-lg shadow-lg overflow-hidden cursor-pointer hover:scale-105 transition"
+            className="bg-blue-900 rounded-lg shadow-lg overflow-hidden cursor-pointer hover:scale-105 transition"
             whileHover={{ scale: 1.05 }}
           >
             <img src={p.image} className="w-full h-48 object-cover" />
             <div className="p-4">
-              <h3 className="text-xl text-purple-700 font-bold mb-2">{p.name}</h3>
+              <h3 className="text-xl text-purple-400 font-bold mb-2">{p.name}</h3>
               <Link
                 to={`/projects/${p.id}`}
-                className="btn btn-outline hover:bg-cyan-500 hover:text-white hover:border-0 text-cyan-600 font-semibold"
+                className="btn btn-outline hover:bg-cyan-500 hover:text-white hover:border-0 text-cyan-400 font-semibold"
               >
                 View Details
               </Link>

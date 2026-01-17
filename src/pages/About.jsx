@@ -3,19 +3,16 @@ import { motion } from "framer-motion";
 
 export default function About() {
   return (<div className="bg-indigo-950">
-    <motion.section className="p-10 max-w-4xl mx-auto"
+    <motion.section className="p-10 max-w-4xl text-center mx-auto"
       initial={{ opacity: 0, y: -50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}>
-      <h2 className="text-3xl text-center text-cyan-300 font-bold mb-6">About Me</h2>
+      <h2 className="text-3xl text-cyan-300 font-bold mb-6">About Me</h2>
       <p>
-        I am a frontend developer passionate about building clean and responsive
-        web applications. My journey started with curiosity and evolved into
-        working with React, Firebase, and modern UI systems.
+        I am a MERN stack developer passionate about building scalable, responsive, and user-centric web applications. My journey began with curiosity and has grown into hands-on experience with MongoDB, Express, React, Node.js, Firebase, and modern UI systems.
       </p>
       <p className="mt-4">
-        I enjoy problem-solving, design, and continuous learning. Outside coding,
-        I enjoy literature and creative thinking.
+        I enjoy solving real-world problems, crafting clean interfaces, and continuously improving my skills. Beyond coding, I enjoy literature and creative thinking, which help shape my approach to problem-solving.
       </p>
     </motion.section>
 

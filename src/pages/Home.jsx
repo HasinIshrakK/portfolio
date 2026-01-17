@@ -46,9 +46,9 @@ export default function Home() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.8 }}
       >
-        <a href="https://github.com/yourusername"><FaGithub /></a>
-        <a href="https://linkedin.com/in/yourusername"><FaLinkedin /></a>
-        <a href="#"><FaFacebook /></a>
+        <a href="https://github.com/HasinIshrakK"><FaGithub /></a>
+        <a href="https://www.linkedin.com/in/md-hasin-ishrak-khan"><FaLinkedin /></a>
+        <a href="https://www.facebook.com/muhammadhasinishrak"><FaFacebook /></a>
       </motion.div>
 
     </section>

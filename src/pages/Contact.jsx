@@ -5,11 +5,11 @@ export default function Contact() {
     <motion.section className="p-10 text-center space-y-4"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 2, delay: 0.1 }}>
-      <h2 className="text-3xl font-bold">Contact Me</h2>
-      <p>Email: your@email.com</p>
-      <p>Phone: +880XXXXXXXXX</p>
-      <p>WhatsApp: +880XXXXXXXXX</p>
+      transition={{ duration: 1, delay: 0.1 }}>
+      <h2 className="text-3xl text-cyan-300 font-bold">Contact Me</h2>
+      <p>Email: hasinishrakk@gmail.com</p>
+      <p>Phone: +880 1518-938360</p>
+      <p>WhatsApp: +880 1518-938360</p>
     </motion.section>
   </div >
   );

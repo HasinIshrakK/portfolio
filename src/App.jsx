@@ -11,7 +11,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <Navbar />
-      <div className="h-screen">
+      <div className="">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
