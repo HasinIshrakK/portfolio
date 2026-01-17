@@ -4,14 +4,18 @@ import { motion } from "framer-motion";
 export default function Home() {
   return (
     <section className="min-h-screen bg-linear-to-tr from-purple-800 via-indigo-600 to-cyan-600 flex flex-col items-center justify-center text-center text-white px-4">
-      
-      <motion.img
-        src="/profile.jpg"
-        className="w-40 h-40 rounded-full border-4 border-white mb-4"
+
+      <motion.div
+        className="w-40 h-40 rounded-full border-4 overflow-hidden border-white mb-4"
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-      />
+      >
+        <img
+          src="/md_hasin_ishrak_khan.jpg"
+          className="scale-125"
+        />
+      </motion.div>
 
       <motion.h1
         className="text-5xl font-bold mb-2"
