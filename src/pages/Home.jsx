@@ -35,14 +35,16 @@ export default function Home() {
         MERN Stack Developer | React Enthusiast
       </motion.p>
 
-      <motion.button
-        className="bg-yellow-400 text-black font-semibold px-6 py-2 rounded shadow hover:bg-yellow-300 transition btn border-0 text-base"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8, delay: 0.6 }}
-      >
-        Download Resume
-      </motion.button>
+      <a href="https://drive.google.com/uc?export=download&id=1G4gtfNMp7n_YgiWCeUEaikD9xi-dG_lZ" download='MD_HASIN_ISHRAK_KHAN-resume.pdf'>
+        <motion.button
+          className="bg-yellow-400 text-black font-semibold px-6 py-2 rounded shadow hover:bg-yellow-300 transition btn border-0 text-base"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+        >
+          Download Resume
+        </motion.button>
+      </a>
 
       <motion.div
         className="flex gap-6 mt-6 text-3xl"
