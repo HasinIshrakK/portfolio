@@ -28,7 +28,7 @@ export default function Projects() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-4xl md:text-5xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-500 mb-4">
+          <h2 className="text-4xl md:text-5xl font-extrabold bg-clip-text text-transparent bg-linear-to-r from-white to-slate-500 mb-4">
             Featured Projects
           </h2>
           <div className="h-1.5 w-24 bg-cyan-500 mx-auto rounded-full" />
@@ -55,9 +55,9 @@ export default function Projects() {
                   alt={p.name}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80" />
+                <div className="absolute inset-0 bg-linear-to-t from-slate-950 via-transparent to-transparent opacity-80" />
                 
-                {/* Tech Badges (Assuming tech exists in your data) */}
+                {/* Tech Badges */}
                 <div className="absolute bottom-4 left-4 flex flex-wrap gap-2">
                   {p.tags?.map(tag => (
                     <span key={tag} className="text-[10px] uppercase font-bold tracking-widest bg-black/60 backdrop-blur-md text-cyan-400 px-2 py-1 rounded border border-white/10">

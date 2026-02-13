@@ -29,7 +29,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-3 group">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-purple-600 flex items-center justify-center text-white font-black text-xl shadow-lg group-hover:rotate-6 transition-transform">
+          <div className="w-10 h-10 rounded-xl bg-linear-to-tr from-cyan-500 to-purple-600 flex items-center justify-center text-white font-black text-xl shadow-lg group-hover:rotate-6 transition-transform">
             H
           </div>
           <span className="text-xl text-white font-bold tracking-tighter">

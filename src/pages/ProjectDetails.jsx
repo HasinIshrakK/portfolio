@@ -23,7 +23,7 @@ export default function ProjectDetails() {
 
         {/* Hero Section */}
         <header className="mb-12">
-          <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-4 bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400">
+          <h1 className="text-4xl md:text-5xl font-extrabold mb-4 bg-clip-text text-transparent bg-linear-to-r from-white to-slate-400">
             {project.name}
           </h1>
           <p className="text-xl text-slate-400 leading-relaxed max-w-2xl">

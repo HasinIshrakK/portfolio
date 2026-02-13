@@ -26,7 +26,7 @@ export default function Contact() {
   return (
     <div className="min-h-screen bg-[#0f172a] flex items-center justify-center px-6 py-20 relative overflow-hidden">
       {/* Animated background glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-125 h-125 bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none" />
 
       <motion.section 
         initial={{ opacity: 0, scale: 0.95 }}

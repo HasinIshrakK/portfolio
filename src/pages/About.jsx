@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-// Assuming SkillBar is a component you've built; I've styled the container below
 import SkillBar from "../components/SkillBar"; 
 
 export default function About() {
@@ -21,7 +20,7 @@ export default function About() {
           className="space-y-6"
         >
           <div className="inline-block">
-            <h2 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-500">
+            <h2 className="text-4xl font-bold bg-clip-text text-transparent bg-linear-to-r from-cyan-400 to-purple-500">
               About Me
             </h2>
             <div className="h-1 w-20 bg-cyan-500 mt-1 rounded-full"></div>
@@ -67,8 +66,6 @@ export default function About() {
           </h3>
           
           <div className="space-y-5">
-            {/* If your SkillBar doesn't handle the labels/styling well, 
-                you can wrap them or pass specific classes to them */}
             <div className="space-y-6">
               <SkillBar skill="JavaScript (ES6+)" level={85} />
               <SkillBar skill="React & Next.js" level={80} />

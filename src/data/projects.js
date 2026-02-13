@@ -9,6 +9,7 @@ export const projects = [
     github: "https://github.com/HasinIshrakK/Freelance_MarketPlace_client-side",
     challenges: "Server management",
     future: "Admin dashboard",
+    tags: ["React", "Node"]
   },
   {
     id: "scholar-stream",
