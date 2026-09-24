@@ -114,7 +114,6 @@ export default function Home() {
               </button>
             </Link>
           </motion.div>
-"https://github.com/HasinIshrakK"
           {/* Social Links */}
           <motion.div variants={itemVariants} className="flex gap-8 text-2xl text-slate-400">
             {[

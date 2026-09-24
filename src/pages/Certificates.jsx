@@ -17,37 +17,40 @@ export default function Certificates() {
 
   const certificates = [
     {
-      title: "MERN Stack Developer Bootcamp",
-      issuer: "Udemy / Online Academy",
-      date: "Aug 2025",
-      skills: ["MongoDB", "Express", "React", "Node"],
-      imageUrl: "https://unsplash.com", // Replace with your cert image path
-      credentialUrl: "https://udemy.com" 
-    },
-    {
-      title: "Advanced React & Next.js",
-      issuer: "Frontend Masters",
-      date: "Nov 2025",
-      skills: ["Next.js", "SSR", "Tailwind CSS"],
-      imageUrl: "https://unsplash.com", // Replace with your cert image path
+      title: "Cybersecurity Career Starter Certification",
+      issuer: "Hack & Fix Academy",
+      date: "Sep 2026",
+      skills: ["Foundation of Cybersecurity", "Guideline for learning Cybersecurity"],
+      imageUrl: "https://drive.google.com/thumbnail?id=1sBxejb_X-vDusXrs0udRTT6SWW_Klqio",
+      fullView: "https://drive.google.com/file/d/1sBxejb_X-vDusXrs0udRTT6SWW_Klqio/view?usp=drive_link",
       credentialUrl: "#"
     },
     {
-      title: "Cloud Infrastructure Basics",
-      issuer: "AWS / Coursera",
-      date: "Feb 2026",
-      skills: ["AWS S3", "Vercel", "Firebase"],
-      imageUrl: "https://unsplash.com", // Replace with your cert image path
+      title: "Complete Web Development Course",
+      issuer: "Programming Hero",
+      date: "Dec 2025",
+      skills: ["Next.js", "MongoDB", "Express.js", "React", "Node.js", "Javascript", "HTML5", "CSS3"],
+      imageUrl: "https://drive.google.com/thumbnail?id=1k56YaJ94QUuu6KOoGAj2NFxkHAK9557k",
+      fullView: "https://drive.google.com/file/d/1k56YaJ94QUuu6KOoGAj2NFxkHAK9557k/view?usp=drive_link",
       credentialUrl: "#"
+    },
+    {
+      title: "Freelancing Traing Course",
+      issuer: "e-Learning and Earning Ltd.",
+      date: "Jun 2025",
+      skills: ["Digital Marketing", "Canva", "Microsoft", "English Communication"],
+      imageUrl: "https://drive.google.com/thumbnail?id=1_80VhSqSYCajtOAYGE8Gxs1zdRZN9Snt",
+      fullView: "https://drive.google.com/file/d/1_80VhSqSYCajtOAYGE8Gxs1zdRZN9Snt/view?usp=drive_link",
+      credentialUrl: "https://udemy.com"
     }
   ];
 
   return (
     <div className="min-h-screen bg-[#0f172a] text-slate-200 py-20 px-6">
       <div className="max-w-6xl mx-auto space-y-12">
-        
+
         {/* Header Block */}
-        <motion.div 
+        <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
@@ -64,7 +67,7 @@ export default function Certificates() {
         </motion.div>
 
         {/* Certificate Cards Grid */}
-        <motion.div 
+        <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -72,29 +75,36 @@ export default function Certificates() {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
           {certificates.map((cert, index) => (
-            <motion.div 
+            <motion.div
               key={index}
               variants={fadeInUp}
               className="bg-white/5 border border-white/10 p-5 rounded-3xl backdrop-blur-sm flex flex-col justify-between hover:border-cyan-500/30 transition-all duration-300 group"
             >
               <div>
                 {/* Visual Certificate Preview Area */}
-                <div 
-                  onClick={() => setActiveCert(cert)}
-                  className="relative aspect-video w-full rounded-2xl overflow-hidden bg-slate-900 border border-white/5 mb-5 cursor-pointer group/img"
+                <a
+                  href={cert.fullView}
+                  target="_blank"
+                  rel="noreferrer"
                 >
-                  <img 
-                    src={cert.imageUrl} 
-                    alt={cert.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover/img:scale-105"
-                  />
-                  {/* Subtle Hover Overlay */}
-                  <div className="absolute inset-0 bg-slate-950/40 opacity-0 group-hover/img:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-[2px]">
-                    <span className="px-4 py-2 bg-slate-900/90 text-cyan-400 text-xs font-bold rounded-xl border border-cyan-500/30 tracking-wide shadow-xl">
-                      Click to Expand
-                    </span>
+                  <div
+                    // onClick={() => setActiveCert(cert)}
+                    className="relative aspect-video w-full rounded-2xl overflow-hidden bg-slate-900 border border-white/5 mb-5 cursor-pointer group/img"
+                  >
+                    <img
+                      src={cert.imageUrl}
+                      alt={cert.title}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover/img:scale-105"
+                    />
+                    {/* Subtle Hover Overlay */}
+                    <div className="absolute inset-0 bg-slate-950/40 opacity-0 group-hover/img:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-[2px]">
+                      <span className="px-4 py-2 bg-slate-900/90 text-cyan-400 text-xs font-bold rounded-xl border border-cyan-500/30 tracking-wide shadow-xl">
+                        Click to Expand
+                      </span>
+
+                    </div>
                   </div>
-                </div>
+                </a>
 
                 {/* Title & Metadata */}
                 <div className="flex justify-between items-start mb-3">
@@ -116,8 +126,8 @@ export default function Certificates() {
                 {/* Skills Tags */}
                 <div className="flex flex-wrap gap-2 mb-6">
                   {cert.skills.map((skill) => (
-                    <span 
-                      key={skill} 
+                    <span
+                      key={skill}
                       className="px-2 py-0.5 bg-slate-800 text-slate-400 rounded-md text-xs border border-slate-700/60"
                     >
                       {skill}
@@ -127,7 +137,7 @@ export default function Certificates() {
               </div>
 
               {/* Action Button Kept As Is */}
-              <a 
+              {/* <a
                 href={cert.credentialUrl}
                 target="_blank"
                 rel="noreferrer"
@@ -137,7 +147,7 @@ export default function Certificates() {
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                 </svg>
-              </a>
+              </a> */}
             </motion.div>
           ))}
         </motion.div>
@@ -146,14 +156,14 @@ export default function Certificates() {
       {/* Pop-up Lightbox Modal */}
       <AnimatePresence>
         {activeCert && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setActiveCert(null)}
             className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md cursor-zoom-out"
           >
-            <motion.div 
+            <motion.div
               initial={{ scale: 0.95, y: 20 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.95, y: 20 }}
@@ -162,7 +172,7 @@ export default function Certificates() {
               className="relative max-w-4xl w-full bg-slate-900 border border-white/10 p-3 rounded-2xl shadow-2xl overflow-hidden cursor-default"
             >
               {/* Close Button */}
-              <button 
+              <button
                 onClick={() => setActiveCert(null)}
                 className="absolute top-5 right-5 z-10 p-2 bg-slate-950/60 hover:bg-slate-950 text-slate-400 hover:text-white rounded-full transition-colors border border-white/5"
               >
@@ -172,12 +182,12 @@ export default function Certificates() {
               </button>
 
               {/* Large Image View */}
-              <img 
-                src={activeCert.imageUrl} 
-                alt={activeCert.title} 
+              <img
+                src={activeCert.imageUrl}
+                alt={activeCert.title}
                 className="w-full h-auto rounded-xl object-contain max-h-[75vh]"
               />
-              
+
               {/* Title Tray inside Modal */}
               <div className="p-4 mt-2">
                 <h4 className="text-xl font-bold text-white">{activeCert.title}</h4>
