@@ -38,7 +38,7 @@ export default function Certificates() {
       title: "Freelancing Traing Course",
       issuer: "e-Learning and Earning Ltd.",
       date: "Jun 2025",
-      skills: ["Digital Marketing", "Canva", "Microsoft", "English Communication"],
+      skills: ["Digital Marketing", "Canva", "Microsoft Office", "English Communication"],
       imageUrl: "https://drive.google.com/thumbnail?id=1_80VhSqSYCajtOAYGE8Gxs1zdRZN9Snt",
       fullView: "https://drive.google.com/file/d/1_80VhSqSYCajtOAYGE8Gxs1zdRZN9Snt/view?usp=drive_link",
       credentialUrl: "https://udemy.com"

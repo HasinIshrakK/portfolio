@@ -14,6 +14,8 @@ export default function Home() {
     }
   };
 
+  const resumeLink = "https://drive.google.com/uc?export=download&id=13PLKt52z-lR6P4osHD4zP7HG0ilyh3fe";
+
   const [member, setMember] = useState([]);
   const [projects, setProjects] = useState([])
   const [loading, setLoading] = useState(true);
@@ -34,7 +36,9 @@ export default function Home() {
     };
 
     fetchMember();
-  }, [axiosInstance]); useEffect(() => {
+  }, [axiosInstance]); 
+  
+  useEffect(() => {
     const fetchProjects = async () => {
       try {
         const response = await axiosInstance.get(`/my-projects`);
@@ -103,7 +107,7 @@ export default function Home() {
           {/* Action Buttons */}
           <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 mb-10 w-full justify-center">
             <a
-              href="https://drive.google.com/uc?export=download&id=1ztLtqzaV6omxzSb1-TixYsq-0CDPQ_46"
+              href={resumeLink}
               className="group relative px-8 py-3 bg-white text-slate-950 font-bold rounded-xl transition-all hover:scale-105 active:scale-95 text-center"
             >
               Download Resume

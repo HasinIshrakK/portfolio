@@ -20,7 +20,7 @@ export const projects = [
     live: "https://scholar-stream-app.web.app/",
     github: "https://github.com/HasinIshrakK/scholar-stream-client",
     challenges: "Dashboard Management",
-    future: "Better UI",
+    future: "Auto data fill up for application",
   },
   {
     id: "awesome-lms",
