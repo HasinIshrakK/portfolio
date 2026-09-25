@@ -14,9 +14,7 @@ export default function Home() {
     }
   };
 
-  const resumeLink = "https://drive.google.com/uc?export=download&id=13PLKt52z-lR6P4osHD4zP7HG0ilyh3fe";
-
-  const [member, setMember] = useState([]);
+  const [aboutInfo, setAboutInfo] = useState([]);
   const [projects, setProjects] = useState([])
   const [loading, setLoading] = useState(true);
   const [loading2, setLoading2] = useState(true);
@@ -24,20 +22,20 @@ export default function Home() {
   const axiosInstance = useAxios();
 
   useEffect(() => {
-    const fetchMember = async () => {
+    const fetchAboutInfo = async () => {
       try {
-        const response = await axiosInstance.get(`/members/${import.meta.env.VITE_id}`);
-        setMember(response.data.data);
+        const response = await axiosInstance.get(`/about-me`);
+        setAboutInfo(response.data.data[0]);
       } catch (err) {
-        console.error("Failed to fetch member", err);
+        console.error("Failed to fetch about info", err);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchMember();
-  }, [axiosInstance]); 
-  
+    fetchAboutInfo();
+  }, [axiosInstance]);
+
   useEffect(() => {
     const fetchProjects = async () => {
       try {
@@ -94,20 +92,20 @@ export default function Home() {
             variants={itemVariants}
             className="text-4xl md:text-6xl font-extrabold tracking-tight bg-clip-text text-transparent bg-linear-to-r from-white to-slate-400 mb-3"
           >
-            Md. Hasin Ishrak Khan
+            {aboutInfo.name}
           </motion.h1>
 
           <motion.p
             variants={itemVariants}
             className="text-lg md:text-xl text-slate-400 font-medium mb-8 max-w-md"
           >
-            MERN Stack Developer <span className="text-cyan-500">|</span> React Specialist
+            {aboutInfo.role} <span className="text-cyan-500">|</span> {aboutInfo.role2}
           </motion.p>
 
           {/* Action Buttons */}
           <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 mb-10 w-full justify-center">
             <a
-              href={resumeLink}
+              href={aboutInfo.resumeDownload}
               className="group relative px-8 py-3 bg-white text-slate-950 font-bold rounded-xl transition-all hover:scale-105 active:scale-95 text-center"
             >
               Download Resume
@@ -159,7 +157,7 @@ export default function Home() {
 
             {/* Tech Cloud: Interactive Pills */}
             <div className="flex flex-wrap gap-3">
-              {["React", "Node.js", "Express", "MongoDB", "Next.js", "Tailwind", "TypeScript", "Firebase", "Redux", "Framer Motion"].map((tech, idx) => (
+              {aboutInfo.skills.map((tech, idx) => (
                 <motion.span
                   key={tech}
                   initial={{ opacity: 0, scale: 0.8 }}
@@ -204,7 +202,7 @@ export default function Home() {
 
           {/* Displaying first 2 projects only */}
           <div className="grid md:grid-cols-2 gap-10">
-            {projects.slice(0, 2).map((p, idx) => (
+            {projects.filter(p => p.featured === true).map((p, idx) => (
               <motion.div
                 key={p.id}
                 initial={{ opacity: 0, y: 40 }}
