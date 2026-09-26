@@ -6,6 +6,31 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 export default function Home() {
+
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+  };
+
+  const containerVariants2 = {
+    hidden: {},
+    visible: { transition: { staggerChildren: 0.1 } }
+  };
+
+  function getRandomElementsUnique(arr, count) {
+    // Create a shallow copy to avoid mutating the original array
+    const shuffled = [...arr];
+
+    // Fisher-Yates Shuffle
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+
+    // Return the requested number of elements
+    return shuffled.slice(0, count);
+  }
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -16,8 +41,10 @@ export default function Home() {
 
   const [aboutInfo, setAboutInfo] = useState([]);
   const [projects, setProjects] = useState([])
+  const [certificates, setCeritificates] = useState([])
   const [loading, setLoading] = useState(true);
   const [loading2, setLoading2] = useState(true);
+  const [loading3, setLoading3] = useState(true);
 
   const axiosInstance = useAxios();
 
@@ -51,7 +78,22 @@ export default function Home() {
     fetchProjects();
   }, [axiosInstance]);
 
-  if (loading || loading2) return <p className="text-center text-3xl md:text-4xl font-semibold bg-linear-to-r from-cyan-500 to-purple-600 bg-clip-text text-transparent min-h-screen items-center flex justify-center">Loading...</p>;
+  useEffect(() => {
+    const fetchCeritificates = async () => {
+      try {
+        const response = await axiosInstance.get(`/my-certificates`);
+        setCeritificates(response.data.data);
+      } catch (err) {
+        console.error("Failed to fetch ceritificates", err);
+      } finally {
+        setLoading3(false);
+      }
+    };
+
+    fetchCeritificates();
+  }, [axiosInstance]);
+
+  if (loading || loading2 || loading3) return <p className="text-center text-3xl md:text-4xl font-semibold bg-linear-to-r from-cyan-500 to-purple-600 bg-clip-text text-transparent min-h-screen items-center flex justify-center">Loading...</p>;
 
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -180,11 +222,11 @@ export default function Home() {
           >
             <h3 className="text-xl font-bold text-white mb-8 tracking-widest uppercase">Core Proficiencies</h3>
 
-              {aboutInfo.proficiencies.filter(proficiency => proficiency.core === true).map((p, idx) => {
-                 return (<div key={idx}>
-                  <SkillBar skill={p.skill} level={p.level} />
-                </div>)
-              })}
+            {aboutInfo.proficiencies.filter(proficiency => proficiency.core === true).map((p, idx) => {
+              return (<div key={idx}>
+                <SkillBar skill={p.skill} level={p.level} />
+              </div>)
+            })}
           </motion.div>
         </div>
       </section>
@@ -253,7 +295,151 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* SECTION 4: CALL TO ACTION */}
+      {/* SECTION: FEATURED CERTIFICATES */}
+      <section className="py-24 px-6 max-w-6xl mx-auto space-y-12">
+
+        {/* Synchronized Header Visual Elements */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeInUp}
+          className="inline-block"
+        >
+          <h2 className="text-4xl font-bold bg-clip-text text-transparent bg-linear-to-r from-cyan-400 to-purple-500">
+            Verified Expertise
+          </h2>
+          <div className="h-1 w-20 bg-cyan-500 mt-1 rounded-full"></div>
+          <p className="text-slate-400 mt-4 text-lg max-w-xl">
+            A verified timeline of my structural deep dives, specialized bootcamps, and engineering frameworks.
+          </p>
+        </motion.div>
+
+        {/* Dynamic Grid Layout (2 Cards + 1 "See More" Route Anchor) */}
+        <motion.div
+          variants={containerVariants2}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        >
+          {getRandomElementsUnique(certificates, 2).map((cert, index) => (
+            <motion.div
+              key={index}
+              variants={fadeInUp}
+              className="bg-white/5 border border-white/10 p-5 rounded-3xl backdrop-blur-sm flex flex-col justify-between hover:border-cyan-500/30 transition-all duration-300 group"
+            >
+              <div>
+                {/* Visual Certificate Preview Area */}
+                <a
+                  href={cert.fullView}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <div
+                    // onClick={() => setActiveCert(cert)}
+                    className="relative aspect-video w-full rounded-2xl overflow-hidden bg-slate-900 border border-white/5 mb-5 cursor-pointer group/img"
+                  >
+                    <img
+                      src={cert.imageUrl}
+                      alt={cert.title}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover/img:scale-105"
+                    />
+                    {/* Subtle Hover Overlay */}
+                    <div className="absolute inset-0 bg-slate-950/40 opacity-0 group-hover/img:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-[2px]">
+                      <span className="px-4 py-2 bg-slate-900/90 text-cyan-400 text-xs font-bold rounded-xl border border-cyan-500/30 tracking-wide shadow-xl">
+                        Click to Expand
+                      </span>
+
+                    </div>
+                  </div>
+                </a>
+
+                {/* Title & Metadata */}
+                <div className="flex justify-between items-start mb-3">
+                  <span className="text-xs font-semibold tracking-wider text-slate-500 uppercase">
+                    {cert.date}
+                  </span>
+                  <span className="text-xs px-2.5 py-0.5 bg-purple-500/10 text-purple-400 rounded-full border border-purple-500/20 font-medium">
+                    Verified
+                  </span>
+                </div>
+
+                <h3 className="text-xl font-bold text-white mb-1 group-hover:text-cyan-400 transition-colors duration-300">
+                  {cert.title}
+                </h3>
+                <p className="text-sm text-slate-400 mb-4">
+                  Issued by {cert.issuer}
+                </p>
+
+                {/* Skills Tags */}
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {cert.skills.map((skill) => (
+                    <span
+                      key={skill}
+                      className="px-2 py-0.5 bg-slate-800 text-slate-400 rounded-md text-xs border border-slate-700/60"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Action Button Kept As Is */}
+              {/* <a
+                href={cert.credentialUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="mt-auto w-full text-center py-2.5 rounded-xl bg-white/5 border border-white/10 text-sm font-semibold tracking-wide text-slate-300 hover:bg-linear-to-r hover:from-cyan-500 hover:to-purple-600 hover:text-white hover:border-transparent transition-all duration-300 flex items-center justify-center gap-2"
+              >
+                View Credential
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+              </a> */}
+            </motion.div>
+          ))}
+
+          {/* INTEGRATED "SEE MORE" REDIRECT GRID CARD */}
+          <motion.div
+            variants={fadeInUp}
+            className="relative bg-gradient-to-br from-white/5 to-white/[0.01] border border-white/10 p-8 rounded-3xl backdrop-blur-sm flex flex-col justify-center items-center text-center group min-h-[350px] overflow-hidden hover:border-purple-500/30 transition-all duration-500"
+          >
+            {/* Background Accent Glow Effect */}
+            <div className="absolute -bottom-20 -right-20 w-40 h-40 bg-purple-500/10 rounded-full blur-3xl group-hover:bg-purple-500/20 transition-all duration-500" />
+            <div className="absolute -top-20 -left-20 w-40 h-40 bg-cyan-500/5 rounded-full blur-3xl group-hover:bg-cyan-500/10 transition-all duration-500" />
+
+            <div className="z-10 space-y-6">
+              {/* Animated Glowing Icon Wrapper */}
+              <div className="w-16 h-16 mx-auto rounded-2xl bg-slate-800 border border-slate-700/60 flex items-center justify-center text-purple-400 group-hover:text-cyan-400 group-hover:border-cyan-500/30 group-hover:scale-110 transition-all duration-500 shadow-xl">
+                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                </svg>
+              </div>
+
+              <div className="space-y-2">
+                <h3 className="text-2xl font-bold text-white tracking-tight">Continuous Growth</h3>
+                <p className="text-slate-400 text-sm max-w-[220px] mx-auto leading-relaxed">
+                  Explore my complete catalog of specialized programs, courses, and honors.
+                </p>
+              </div>
+
+              <Link
+                to="/certificates"
+                className="inline-flex items-center gap-2 px-5 py-2.5 bg-slate-800 hover:bg-linear-to-r hover:from-cyan-500 hover:to-purple-600 hover:text-white rounded-xl text-sm font-semibold tracking-wide text-slate-300 border border-slate-700 hover:border-transparent transition-all duration-300 shadow-md"
+              >
+                Explore All Credentials
+                <svg className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </Link>
+            </div>
+          </motion.div>
+
+        </motion.div>
+      </section>
+
+      {/* SECTION: CALL TO ACTION */}
       <section className="py-24 bg-linear-to-b from-transparent to-cyan-900/10">
         <div className="max-w-4xl mx-auto text-center px-6">
           <h2 className="text-4xl font-bold text-white mb-6">Ready to bring your idea to life?</h2>
