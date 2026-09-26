@@ -1,13 +1,20 @@
-import { projects } from "../data/projects";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import useAxios from "../hooks/useAxios";
+import { useEffect, useState } from "react";
 
 export default function Projects() {
+
+  const [projects, setProjects] = useState([])
+  const [loading, setLoading] = useState(true);
+
+  const axiosInstance = useAxios();
+
   const containerVariants = {
     hidden: { opacity: 0 },
-    visible: { 
-      opacity: 1, 
-      transition: { staggerChildren: 0.15 } 
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.15 }
     }
   };
 
@@ -16,13 +23,30 @@ export default function Projects() {
     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
   };
 
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const response = await axiosInstance.get(`/my-projects`);
+        setProjects(response.data.data);
+      } catch (err) {
+        console.error("Failed to fetch projects", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProjects();
+  }, [axiosInstance]);
+  
+  if (loading) return <p className="text-center text-3xl md:text-4xl font-semibold bg-linear-to-r from-cyan-500 to-purple-600 bg-clip-text text-transparent min-h-screen items-center flex justify-center">Loading...</p>;
+  
   return (
     <div className="min-h-screen bg-[#0f172a] py-20 px-6 overflow-hidden relative">
       {/* Background Decorative Blur */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-cyan-900/5 blur-[120px] pointer-events-none" />
 
       <section className="max-w-7xl mx-auto relative z-10">
-        <motion.div 
+        <motion.div
           className="text-center mb-16"
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -34,7 +58,7 @@ export default function Projects() {
           <div className="h-1.5 w-24 bg-cyan-500 mx-auto rounded-full" />
         </motion.div>
 
-        <motion.div 
+        <motion.div
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
           variants={containerVariants}
           initial="hidden"
@@ -50,13 +74,13 @@ export default function Projects() {
             >
               {/* Image Container with Overlay */}
               <div className="relative h-56 overflow-hidden">
-                <img 
-                  src={p.image} 
+                <img
+                  src={p.image}
                   alt={p.name}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-linear-to-t from-slate-950 via-transparent to-transparent opacity-80" />
-                
+
                 {/* Tech Badges */}
                 <div className="absolute bottom-4 left-4 flex flex-wrap gap-2">
                   {p.tags?.map(tag => (
@@ -75,7 +99,7 @@ export default function Projects() {
                 <p className="text-slate-400 text-sm line-clamp-2 mb-6">
                   {p.description || "A comprehensive MERN stack solution built for modern web performance."}
                 </p>
-                
+
                 <Link
                   to={`/projects/${p.id}`}
                   className="inline-flex items-center gap-2 text-sm font-bold text-white bg-slate-800 hover:bg-cyan-600 px-5 py-2.5 rounded-xl transition-all duration-300 w-full justify-center border border-slate-700 hover:border-cyan-400 shadow-lg"

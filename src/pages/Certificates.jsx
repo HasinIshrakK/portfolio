@@ -1,9 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import useAxios from "../hooks/useAxios";
 
 export default function Certificates() {
   // State to track which certificate is currently being viewed in the modal
   const [activeCert, setActiveCert] = useState(null);
+
+  const [certificates, setCeritificates] = useState([])
+  const [loading, setLoading] = useState(true);
+
+  const axiosInstance = useAxios();
+
 
   const fadeInUp = {
     hidden: { opacity: 0, y: 30 },
@@ -15,35 +22,22 @@ export default function Certificates() {
     visible: { transition: { staggerChildren: 0.1 } }
   };
 
-  const certificates = [
-    {
-      title: "Cybersecurity Career Starter Certification",
-      issuer: "Hack & Fix Academy",
-      date: "Sep 2026",
-      skills: ["Foundation of Cybersecurity", "Guideline for learning Cybersecurity"],
-      imageUrl: "https://drive.google.com/thumbnail?id=1sBxejb_X-vDusXrs0udRTT6SWW_Klqio",
-      fullView: "https://drive.google.com/file/d/1sBxejb_X-vDusXrs0udRTT6SWW_Klqio/view?usp=drive_link",
-      credentialUrl: "#"
-    },
-    {
-      title: "Complete Web Development Course",
-      issuer: "Programming Hero",
-      date: "Dec 2025",
-      skills: ["Next.js", "MongoDB", "Express.js", "React", "Node.js", "Javascript", "HTML5", "CSS3"],
-      imageUrl: "https://drive.google.com/thumbnail?id=1k56YaJ94QUuu6KOoGAj2NFxkHAK9557k",
-      fullView: "https://drive.google.com/file/d/1k56YaJ94QUuu6KOoGAj2NFxkHAK9557k/view?usp=drive_link",
-      credentialUrl: "#"
-    },
-    {
-      title: "Freelancing Traing Course",
-      issuer: "e-Learning and Earning Ltd.",
-      date: "Jun 2025",
-      skills: ["Digital Marketing", "Canva", "Microsoft Office", "English Communication"],
-      imageUrl: "https://drive.google.com/thumbnail?id=1_80VhSqSYCajtOAYGE8Gxs1zdRZN9Snt",
-      fullView: "https://drive.google.com/file/d/1_80VhSqSYCajtOAYGE8Gxs1zdRZN9Snt/view?usp=drive_link",
-      credentialUrl: "https://udemy.com"
-    }
-  ];
+  useEffect(() => {
+    const fetchCeritificates = async () => {
+      try {
+        const response = await axiosInstance.get(`/my-certificates`);
+        setCeritificates(response.data.data);
+      } catch (err) {
+        console.error("Failed to fetch ceritificates", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCeritificates();
+  }, [axiosInstance]);
+
+  if (loading) return <p className="text-center text-3xl md:text-4xl font-semibold bg-linear-to-r from-cyan-500 to-purple-600 bg-clip-text text-transparent min-h-screen items-center flex justify-center">Loading...</p>;
 
   return (
     <div className="min-h-screen bg-[#0f172a] text-slate-200 py-20 px-6">

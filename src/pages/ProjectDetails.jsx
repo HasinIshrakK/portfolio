@@ -1,9 +1,33 @@
 import { useParams, Link } from "react-router-dom";
-import { projects } from "../data/projects";
 import { motion } from "framer-motion";
 import { FaGithub, FaExternalLinkAlt, FaArrowLeft } from "react-icons/fa";
+import useAxios from "../hooks/useAxios";
+import { useEffect, useState } from "react";
 
 export default function ProjectDetails() {
+
+  const [projects, setProjects] = useState([])
+  const [loading, setLoading] = useState(true);
+
+  const axiosInstance = useAxios();
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const response = await axiosInstance.get(`/my-projects`);
+        setProjects(response.data.data);
+      } catch (err) {
+        console.error("Failed to fetch projects", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProjects();
+  }, [axiosInstance]);
+
+  if (loading) return <p className="text-center text-3xl md:text-4xl font-semibold bg-linear-to-r from-cyan-500 to-purple-600 bg-clip-text text-transparent min-h-screen items-center flex justify-center">Loading...</p>;
+  
   const { id } = useParams();
   const project = projects.find((p) => p.id === id);
 
@@ -11,7 +35,7 @@ export default function ProjectDetails() {
 
   return (
     <div className="min-h-screen bg-[#0f172a] text-slate-200 py-12 px-6">
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="max-w-4xl mx-auto"
@@ -33,11 +57,11 @@ export default function ProjectDetails() {
 
         {/* Content Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          
+
           {/* Main Details */}
           <div className="md:col-span-2 space-y-8">
             <section className="bg-white/5 border border-white/10 p-6 rounded-2xl">
-              <h3 className="text-lg font-bold text-cyan-400 mb-3 uppercase tracking-wider">Challenges Overcome</h3>
+              <h3 className="text-lg font-bold text-cyan-400 mb-3 uppercase tracking-wider">Challenges Overcame</h3>
               <p className="text-slate-300 leading-relaxed">{project.challenges}</p>
             </section>
 
@@ -61,17 +85,17 @@ export default function ProjectDetails() {
             </div>
 
             <div className="pt-6 border-t border-white/10 space-y-3">
-              <a 
-                href={project.live} 
-                target="_blank" 
+              <a
+                href={project.live}
+                target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 w-full py-3 bg-white text-slate-950 font-bold rounded-xl hover:bg-cyan-400 transition-all shadow-lg"
               >
                 Live Demo <FaExternalLinkAlt size={14} />
               </a>
-              <a 
-                href={project.github} 
-                target="_blank" 
+              <a
+                href={project.github}
+                target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 w-full py-3 bg-slate-800 text-white font-bold rounded-xl hover:bg-slate-700 transition-all border border-slate-700"
               >
