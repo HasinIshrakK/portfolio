@@ -37,9 +37,9 @@ export default function Projects() {
 
     fetchProjects();
   }, [axiosInstance]);
-  
+
   if (loading) return <p className="text-center text-3xl md:text-4xl font-semibold bg-linear-to-r from-cyan-500 to-purple-600 bg-clip-text text-transparent min-h-screen items-center flex justify-center">Loading...</p>;
-  
+
   return (
     <div className="min-h-screen bg-[#0f172a] py-20 px-6 overflow-hidden relative">
       {/* Background Decorative Blur */}
@@ -73,23 +73,40 @@ export default function Projects() {
               className="group relative bg-slate-900 rounded-2xl border border-white/10 overflow-hidden shadow-2xl transition-all duration-300 hover:border-cyan-500/50"
             >
               {/* Image Container with Overlay */}
-              <div className="relative h-56 overflow-hidden">
-                <img
-                  src={p.image}
-                  alt={p.name}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-linear-to-t from-slate-950 via-transparent to-transparent opacity-80" />
+              <a
+                href={p.live}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <div className="relative h-56 overflow-hidden cursor-pointer">
+                  {/* The Project Image */}
+                  <img
+                    src={p.image}
+                    alt={p.name}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
 
-                {/* Tech Badges */}
-                <div className="absolute bottom-4 left-4 flex flex-wrap gap-2">
-                  {p.tags?.map(tag => (
-                    <span key={tag} className="text-[10px] uppercase font-bold tracking-widest bg-black/60 backdrop-blur-md text-cyan-400 px-2 py-1 rounded border border-white/10">
-                      {tag}
+                  {/* Overlay 1: The Dark Gradient (Always Visible, keeps badges clear & readable) */}
+                  <div className="absolute inset-0 bg-linear-to-t from-slate-950 via-transparent to-transparent opacity-80 pointer-events-none" />
+
+                  {/* Overlay 2: Click to Visit Layer (Fades in + blurs smoothly on card hover) */}
+                  <div className="absolute inset-0 bg-slate-950/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-[2px]">
+                    <span className="px-4 py-2 bg-slate-900/90 text-cyan-400 text-xs font-bold rounded-xl border border-cyan-500/30 tracking-wide shadow-xl transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                      Click to Visit
                     </span>
-                  ))}
+                  </div>
+
+                  {/* Tech Badges (Floating safely on top layer) */}
+                  <div className="absolute bottom-4 left-4 flex flex-wrap gap-2 z-10 pointer-events-none">
+                    {p.tags?.map(tag => (
+                      <span key={tag} className="text-[10px] uppercase font-bold tracking-widest bg-black/60 backdrop-blur-md text-cyan-400 px-2 py-1 rounded border border-white/10">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              </a>
+
 
               {/* Content Section */}
               <div className="p-6">
