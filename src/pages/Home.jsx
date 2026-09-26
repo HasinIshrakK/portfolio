@@ -80,8 +80,8 @@ export default function Home() {
             <div className="absolute -inset-1 bg-linear-to-r from-cyan-500 to-purple-600 rounded-full blur opacity-40 group-hover:opacity-75 transition duration-1000"></div>
             <div className="relative w-full h-full rounded-full border-2 border-white/20 overflow-hidden bg-slate-800">
               <img
-                src="/md_hasin_ishrak_khan.jpg"
-                alt="Md. Hasin Ishrak Khan"
+                src={aboutInfo.image}
+                alt={aboutInfo.name}
                 className="w-full h-full object-cover scale-110 group-hover:scale-125 transition-transform duration-500"
               />
             </div>
@@ -111,7 +111,7 @@ export default function Home() {
               Download Resume
             </a>
             <Link to='/projects'>
-              <button className="px-8 py-3 bg-slate-800 text-white font-semibold rounded-xl border border-slate-700 hover:bg-slate-700 transition-all">
+              <button className="px-8 py-3 bg-slate-800 text-white font-semibold rounded-xl w-full border border-slate-700 hover:bg-slate-700 transition-all">
                 View Projects
               </button>
             </Link>
@@ -119,9 +119,9 @@ export default function Home() {
           {/* Social Links */}
           <motion.div variants={itemVariants} className="flex gap-8 text-2xl text-slate-400">
             {[
-              { Icon: FaGithub, href: `https://github.com/HasinIshrakK` },
-              { Icon: FaLinkedin, href: "https://www.linkedin.com/in/md-hasin-ishrak-khan" },
-              { Icon: FaFacebook, href: "https://www.facebook.com/muhammadhasinishrak" }
+              { Icon: FaGithub, href: aboutInfo.github },
+              { Icon: FaLinkedin, href: aboutInfo.linkedin },
+              { Icon: FaFacebook, href: aboutInfo.facebook }
             ].map(({ Icon, href }, idx) => (
               <a
                 key={idx}
@@ -150,8 +150,7 @@ export default function Home() {
             <div>
               <h2 className="text-4xl font-bold text-white mb-6">Expertise & <span className="text-cyan-400">Philosophy</span></h2>
               <p className="text-slate-400 leading-relaxed text-lg italic border-l-4 border-cyan-500 pl-6">
-                "I don't just write code; I architect digital experiences. My MERN stack journey
-                is fueled by a passion for clean architecture and high-performance UI."
+                {aboutInfo.philosophy}
               </p>
             </div>
 
@@ -180,9 +179,12 @@ export default function Home() {
             className="bg-white/5 p-8 rounded-3xl border border-white/10 backdrop-blur-sm"
           >
             <h3 className="text-xl font-bold text-white mb-8 tracking-widest uppercase">Core Proficiencies</h3>
-            <SkillBar skill="Frontend Architecture" level={92} />
-            <SkillBar skill="Backend Logic (Node/Express)" level={88} />
-            <SkillBar skill="Database Management" level={80} />
+
+              {aboutInfo.proficiencies.filter(proficiency => proficiency.core === true).map((p, idx) => {
+                 return (<div key={idx}>
+                  <SkillBar skill={p.skill} level={p.level} />
+                </div>)
+              })}
           </motion.div>
         </div>
       </section>
